@@ -1,0 +1,50 @@
+﻿@model Client.Models.BasketDto
+
+<br />
+<br />
+
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Basket List</h1>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ProductName</th>
+                <th>Count</th>
+                <th>Amount</th>
+                <th>TotalAmount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BasketItems)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Count</td>
+                    <td>@((item.Amount).ToString("C"))</td>
+                    <td>@((item.TotalAmount).ToString("C"))</td>
+                    <td>
+                        <a asp-action="RemoveFromBasket" class="btn btn-danger" asp-route-basketItemId="@item.Id">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        <a asp-action="IncreaseItem" class="btn btn-success" asp-route-productId="@item.ProductId">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        <a asp-action="DecreaseItem" class="btn btn-warning" asp-route-productId="@item.ProductId">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>@Model.TotalAmount</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
